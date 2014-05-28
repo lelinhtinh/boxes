@@ -1,0 +1,114 @@
+/*
+   jQuery Plugin boxes v0.1
+  
+   by zzbaivong
+   http://devs.forumvi.com/
+ */
+.zzBoxes_overlay {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    background: none no-repeat center center #111;
+    opacity: 0.8;
+}
+.zzBoxes_inner {
+    background-color: #FFF;
+    color: #444;
+    width: auto;
+    min-width: 250px;
+    border: 3px solid #333;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-left: -150px;
+    margin-top: -100px;
+    -webkit-transition: margin .3s;
+    transition: margin .3s;
+}
+.zzBoxes.alert .zzBoxes_inner {
+    border-color: #0D58CA;
+}
+.zzBoxes.alert .zzBoxes_title {
+    color: #0D58CA;
+}
+.zzBoxes.confirm .zzBoxes_inner {
+    border-color: #1B7C44;
+}
+.zzBoxes.confirm .zzBoxes_title {
+    color: #1B7C44;
+}
+.zzBoxes.prompt .zzBoxes_inner {
+    border-color: #BF7C17;
+}
+.zzBoxes.prompt .zzBoxes_title {
+    color: #BF7C17;
+}
+.zzBoxes_title {
+    font-size: 1.4em;
+    line-height: 1.5em;
+}
+.zzBoxes_content {
+    padding: 20px 15px;
+}
+.zzBoxes_mess {    
+}
+.zzBoxes_content img {
+    max-width: 100%;
+}
+.zzBoxes_input {
+    padding: 7px;
+    margin: 10px 0 0;
+    width: 100%;
+    border: 1px solid #DDD;
+    -webkit-transition: all .3s;
+    transition: all .3s;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.zzBoxes_input:focus {
+    border-color: #DF9711;
+    box-shadow: 0 0 3px 1px #DF9711;
+    outline: 0 none;
+}
+.zzBoxes_button {
+    text-align: right;
+    background: #F4F4F4;
+}
+.zzBoxes_button > div {
+    display: inline-block;
+    min-width: 70px;
+    margin: 10px 0 10px 10px;
+    background-color: #1C6DD0;
+    color: #FFF;
+    padding: 5px 14px;
+    text-align: center;
+    -webkit-transition: background .3s;
+    transition: background .3s;
+}
+.zzBoxes_button > div:first-child {
+    margin-left: 0;
+}
+div.zzBoxes_cancel {
+    background-color: #FF4F4F;
+}
+.zzBoxes_close {
+    position: absolute;
+    width: 30px;
+    height: 20px;
+    right: 2px;
+    top: 2px;
+    text-indent: -9999px;
+    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAYAAABWdVznAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAJZJREFUeNpi/P//PwMpgAlKywHxMSD2wKImCogPA7EEmAeyAYhP/oeAb0DsARUD4XAg/gOV2wV2DVTCA6oYWVMIkuLPQGyDrAGbJgzF6BrQNWEoBmEmNA/yADEbEp8ZKoYAODwIMvknlP0TOSBgiqOwuNkDTZM3soZjONzsjaRpC7IGCSDei+5BJE0gxUIgPiOpSQMgwAB/QVTYXhJ/ggAAAABJRU5ErkJggg==) no-repeat center center #FF4F4F;
+    opacity: 0;
+    -webkit-transition: all .3s;
+    transition: all .3s;
+}
+.zzBoxes_inner:hover .zzBoxes_close {
+    opacity: 1;
+}
+.zzBoxes_button > div:hover, .zzBoxes_close:hover {
+    background-color: #333;
+    cursor: pointer;
+}
