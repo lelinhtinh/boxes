@@ -1,59 +1,106 @@
 <!DOCTYPE html>
 <html>
-  <head>
+
+<head>
     <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/jquery.boxes.min.css" media="print" />
     <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
     <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script type="text/javascript" src="javascripts/jquery.boxes.min.js"></script>
+    <script type="text/javascript" src="javascripts/jquery.boxes.repopup.min.js"></script>
+    <script type="text/javascript" src="javascripts/main.js"></script>
+
+    <style>
+    .zzBoxes.custom .zzBoxes_inner {
+        border-color: #FF4F4F;
+    }
+    .zzBoxes.custom .zzBoxes_title {
+        color: #FF4F4F;
+    }
+    </style>
 
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
 
     <title>Boxes by baivong</title>
-  </head>
+</head>
 
-  <body>
+<body>
     <header>
-      <div class="inner">
-        <h1>Boxes</h1>
-        <h2>jQuery plugin for three kind of popup boxes: Alert box, Confirm box, and Prompt box.</h2>
-        <a href="https://github.com/baivong/boxes" class="button"><small>View project on</small>GitHub</a>
-      </div>
+        <div class="inner">
+            <h1>Boxes</h1>
+            <h2>jQuery plugin for three kind of popup boxes: Alert box, Confirm box, and Prompt box.</h2>
+            <a href="https://github.com/baivong/boxes" class="button">
+                <small>View project on</small>GitHub</a>
+        </div>
     </header>
 
     <div id="content-wrapper">
-      <div class="inner clearfix">
-        <section id="main-content">
-          <h1>
-<a name="boxes" class="anchor" href="#boxes"><span class="octicon octicon-link"></span></a>boxes</h1>
+        <div class="inner clearfix">
+            <article>
+                <section id="main-content">
+                    <h1>
+                        <a name="boxes" class="anchor" href="#boxes">
+                            <span class="octicon octicon-link"></span>
+                        </a>boxes</h1>
 
-<p>jQuery plugin for three kind of popup boxes: Alert box, Confirm box, and Prompt box.</p>
+                    <p>jQuery plugin for three kind of popup boxes: Alert box, Confirm box, and Prompt box.</p>
 
-<p><strong><em>Demo:</em></strong> 
-<a href="http://goo.gl/WytFTY">http://goo.gl/WytFTY</a></p>
-        </section>
+                    <p>
+                        <strong>
+                            <em>Demo:</em>
+                        </strong>
+                        <a href="http://goo.gl/WytFTY">http://goo.gl/WytFTY</a>
+                    </p>
+                </section>
+                <section>
+                    <h2>Demo 1 (default):</h2>
+                    <p>Dùng với các thông số tùy chỉnh</p>
+                    <a class="default" href="#">default</a> /
+                    <a class="custom" href="#">custom</a> /
+                    <a class="images" href="http://dl.dropboxusercontent.com/u/126946313/anime/Chapter%20045-037.jpg">images</a> /
+                    <a class="ajax" href="http://www.devs.cf/31567.js">ajax</a> /
+                    <a class="youtube" href="https://www.youtube.com/watch?v=k6uEE6ijmtg">youtube</a> 
+                </section>
+                <section>
+                    <h2>Demo 2 (custom methods):</h2>
+                    <p>3 kiểu popup của trình duyệt</p>
+                    <a class="alert" href="#">alert</a> /
+                    <a class="confirm" href="#">confirm</a> /
+                    <a class="prompt" href="#">prompt</a> 
+                </section>
+                <section>
+                    <h2>Demo 3 (plugin + callback):</h2>
+                    <p>Thay thế popup mặc định của trình duyệt</p>
+                    <a id="alert" href="#">alert</a> /
+                    <a id="confirm" href="#">confirm</a> /
+                    <a id="prompt" href="#">prompt</a> 
+                </section>
+            </article>
+            <aside id="sidebar">
+                <a href="https://github.com/baivong/boxes/zipball/master" class="button">
+                    <small>Download</small>
+                    .zip file
+                </a>
+                <a href="https://github.com/baivong/boxes/tarball/master" class="button">
+                    <small>Download</small>
+                    .tar.gz file
+                </a>
 
-        <aside id="sidebar">
-          <a href="https://github.com/baivong/boxes/zipball/master" class="button">
-            <small>Download</small>
-            .zip file
-          </a>
-          <a href="https://github.com/baivong/boxes/tarball/master" class="button">
-            <small>Download</small>
-            .tar.gz file
-          </a>
+                <p class="repo-owner">
+                    <a href="https://github.com/baivong/boxes"></a>is maintained by <a href="https://github.com/baivong">baivong</a>.</p>
 
-          <p class="repo-owner"><a href="https://github.com/baivong/boxes"></a> is maintained by <a href="https://github.com/baivong">baivong</a>.</p>
-
-          <p>This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the Architect theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.</p>
-        </aside>
-      </div>
+                <p>This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the Architect theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.</p>
+            </aside>
+        </div>
     </div>
 
-  
-  </body>
+</body>
+
 </html>
