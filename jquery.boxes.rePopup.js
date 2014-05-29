@@ -1,14 +1,20 @@
 /*!
- * jQuery Plugin boxes v0.1
- * rePopup v0.1
+ * jQuery Plugin boxes v0.2
+ * rePopup v0.2
  * Replace JavaScript Popup Boxes
  * by zzbaivong
  * http://devs.forumvi.com/
  */
 (function($) {
     'use strict';
-    window.alert = function(mess) {
-        $.boxes('alert', mess);
+    window.alert = function(mess, callback) {
+        $.boxes('alert', mess, function() {
+            if ($.type(callback) === "function") {
+                callback.apply({
+                    data: this.data
+                });
+            }
+        });
     };
     window.confirm = function(mess, callback) {
         $.boxes('confirm', mess, function() {
