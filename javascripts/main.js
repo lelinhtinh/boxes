@@ -36,7 +36,8 @@ $(function () {
 			cancel: function ($obj) {
 				var $title = $obj.find('.zzBoxes_title');
 				var $input = $obj.find('.zzBoxes_input');
-				$title.text('...')
+				$title.text('...');
+				$.boxes.helper.center();
 				$input.val('').focus();
 			},
 			button: function () {
