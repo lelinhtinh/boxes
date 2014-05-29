@@ -1,6 +1,7 @@
 $(function () {
 	// demo 1
-	$(".default").click(function () {
+	$(".default").click(function (e) {
+		e.preventDefault();
 		$.boxes();
 	});
 	$(".custom").click(function (e) {
@@ -82,8 +83,8 @@ $(function () {
 	});
 
 	$(".youtube").click(function (e) {
-		var video = this.href.match(/(?:v=|v\/|embed\/|youtu.be\/)(.{11})/)[1];
 		e.preventDefault();
+		var video = this.href.match(/(?:v=|v\/|embed\/|youtu.be\/)(.{11})/)[1];
 		$.boxes({
 			mode: 'youtube',
 			title: 'Giải đấu Hạng Phong trào - Chung kết',
@@ -100,30 +101,36 @@ $(function () {
 	});
 
 	// demo 2
-	$(".alert").click(function () {
+	$(".alert").click(function (e) {
+		e.preventDefault();
 		$.boxes('alert', 'Đây là thông báo cho bạn.');
 	});
-	$(".confirm").click(function () {
+	$(".confirm").click(function (e) {
+		e.preventDefault();
 		$.boxes('confirm', 'Nhấn một nút bất kỳ!');
 	});
-	$(".prompt").click(function () {
+	$(".prompt").click(function (e) {
+		e.preventDefault();
 		$.boxes('prompt', 'Nhập tên của bạn?', 'baivong');
 	});
 
 	// demo 3
-	$("#alert").click(function () {
+	$("#alert").click(function (e) {
+		e.preventDefault();
 		alert('alert("Đây là thông báo cho bạn.", function() {\n\talert(this.data);\n});', function () {
 			alert(this.data);
 			console.log(this.data);
 		});
 	});
-	$("#confirm").click(function () {
+	$("#confirm").click(function (e) {
+		e.preventDefault();
 		confirm('confirm("Nhấn một nút bất kỳ!", function() {\n\talert(this.data);\n});', function () {
 			alert(this.data);
 			console.log(this.data);
 		});
 	});
-	$("#prompt").click(function () {
+	$("#prompt").click(function (e) {
+		e.preventDefault();
 		prompt('prompt("Nhập tên của bạn?", "baivong", function() {\n\talert("Xin chào! " + this.data);\n});', 'baivong', function () {
 			alert('Xin chào! ' + this.data);
 			console.log(this.data);
