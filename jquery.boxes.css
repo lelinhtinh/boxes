@@ -1,9 +1,14 @@
 /*
-   jQuery Plugin boxes v0.1
-  
-   by zzbaivong
-   http://devs.forumvi.com/
- */
+jQuery Plugin boxes v0.2
+by zzbaivong
+http://devs.forumvi.com/
+*/
+.zzBoxes, .zzBoxes * {
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+    margin: 0;
+    padding: 0;
+}
 .zzBoxes_overlay {
     position: fixed;
     width: 100%;
@@ -51,8 +56,11 @@
 }
 .zzBoxes_content {
     padding: 20px 15px;
+    margin: 0;
 }
-.zzBoxes_mess {    
+.zzBoxes_mess {
+    overflow: auto;
+    white-space: pre-line;
 }
 .zzBoxes_content img {
     max-width: 100%;
@@ -75,6 +83,10 @@
 .zzBoxes_button {
     text-align: right;
     background: #F4F4F4;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    right: 0;
 }
 .zzBoxes_button > div {
     display: inline-block;
