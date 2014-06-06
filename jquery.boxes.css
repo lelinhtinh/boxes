@@ -1,5 +1,5 @@
 /*
-jQuery Plugin boxes v0.2
+jQuery Plugin boxes v0.3
 by zzbaivong
 http://devs.forumvi.com/
 */
@@ -22,7 +22,6 @@ http://devs.forumvi.com/
     background-color: #FFF;
     color: #444;
     width: auto;
-    min-width: 250px;
     border: 3px solid #333;
     position: fixed;
     top: 50%;
