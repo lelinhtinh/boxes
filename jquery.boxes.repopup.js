@@ -1,6 +1,5 @@
 /*!
- * jQuery Plugin boxes v0.2
- * rePopup v0.2
+ * rePopup v0.2 for jQuery Plugin boxes
  * Replace JavaScript Popup Boxes
  * by zzbaivong
  * http://devs.forumvi.com/
