@@ -1,11 +1,11 @@
 /*
-jQuery Plugin boxes v0.2
+jQuery Plugin boxes v0.3
 by zzbaivong
 http://devs.forumvi.com/
 */
 .zzBoxes,.zzBoxes *{-moz-box-sizing:content-box;box-sizing:content-box;margin:0;padding:0}
 .zzBoxes_overlay{position:fixed;width:100%;height:100%;left:0;top:0;background:none no-repeat center center #111;opacity:0.8}
-.zzBoxes_inner{background-color:#FFF;color:#444;width:auto;min-width:250px;border:3px solid #333;position:fixed;top:50%;left:50%;margin-left:-150px;margin-top:-100px;-webkit-transition:margin .3s;transition:margin .3s}
+.zzBoxes_inner{background-color:#FFF;color:#444;width:auto;border:3px solid #333;position:fixed;top:50%;left:50%;margin-left:-150px;margin-top:-100px;-webkit-transition:margin .3s;transition:margin .3s}
 .zzBoxes.alert .zzBoxes_inner{border-color:#0D58CA}
 .zzBoxes.alert .zzBoxes_title{color:#0D58CA}
 .zzBoxes.confirm .zzBoxes_inner{border-color:#1B7C44}
