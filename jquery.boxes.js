@@ -1,5 +1,5 @@
 /*!
- * jQuery Plugin boxes v0.2
+ * jQuery Plugin boxes v0.3
  *
  * by zzbaivong
  * http://devs.forumvi.com/
@@ -29,6 +29,7 @@
                 border: [3, 3],
 
                 autoClose: 0,
+                noClose: false,
                 clickOut: false,
                 messString: true,
                 autoResize: true,
@@ -59,6 +60,7 @@
                     // cancel: '<div class="zzBoxes_cancel"></div>'
                 }
             }, options);
+
 
             // Template cho boxes             
             var tpl = {
@@ -94,13 +96,11 @@
                 $button = template('button'),
                 $ok = template('ok'),
                 $cancel = template('cancel');
-
-            var helper = $.boxes.helper = {
+            var helper = {
 
                 /**
-                 * Public các thành phần của boxes hiện tại
-                 * Ex 1: $.boxes.helper.el.input.val();
-                 * Ex 2: $.boxes.helper.el.overlay.css('background', 'green')
+                 * Ex 1: helper.el.input.val();
+                 * Ex 2: helper.el.overlay.css('background', 'green')
                  */
                 el: {
                     boxes: $boxes,
@@ -118,8 +118,8 @@
 
                 /**
                  * Tạo hiệu ứng dùng ảnh nền
-                 * Ex 1: $.boxes.helper.effect('http://i.imgur.com/m3NXDa6.gif');
-                 * Ex 2: $.boxes.helper.effect('load');
+                 * Ex 1: helper.effect('http://i.imgur.com/m3NXDa6.gif');
+                 * Ex 2: helper.effect('load');
                  * @param {String} URL or 'load' or 'error'
                  */
                 effect: function(url) {
@@ -137,7 +137,7 @@
 
                 /**
                  * Xóa hiệu ứng
-                 * Ex: $.boxes.helper.removeEffect();
+                 * Ex: helper.removeEffect();
                  */
                 removeEffect: function() {
                     if ($inner.css('opacity') == 0) {
@@ -151,25 +151,17 @@
                 },
 
                 /**
-                 * Kích thước cài đặt của boxes
-                 * Ex 1: $.boxes.helper.setWidth;
-                 * Ex 2: $.boxes.helper.setHeight;
-                 */
-                setWidth: 0,
-                setHeight: 0,
-
-                /**
                  * Kích thước hiện tại của boxes
-                 * Ex 1: $.boxes.helper.curWidth;
-                 * Ex 2: $.boxes.helper.curHeight;
+                 * Ex 1: helper.curWidth;
+                 * Ex 2: helper.curHeight;
                  */
                 curWidth: 0,
                 curHeight: 0,
 
                 /**
                  * Căn chỉnh boxes vào giữa
-                 * Ex 1: $.boxes.helper.center();
-                 * Ex 2: $.boxes.helper.center(300, 500);
+                 * Ex 1: helper.center();
+                 * Ex 2: helper.center(300, 500);
                  * @param1 {String}
                  */
                 center: function(setHeight, setWidth) {
@@ -177,7 +169,6 @@
                     if (!setWidth) {
                         setWidth = setting.width;
                     }
-                    helper.setWidth = setWidth; // Lưu thiết lập chiều rộng
                     $inner.width(setWidth);
                     var xWidth = $inner.width();
                     $inner.css({
@@ -213,7 +204,6 @@
                     if (!setHeight) {
                         setHeight = setting.height;
                     }
-                    helper.setHeight = setHeight; // Lưu thiết lập chiều cao
                     $inner.height(setHeight);
                     var Btn = 0;
                     if ($button) {
@@ -271,27 +261,18 @@
                 },
 
                 /**
-                 * Chặn hàm xóa boxes trừ nút Close
-                 * Ex: $.boxes.helper.noClose = false;
-                 * @value {Boolean}
-                 */
-                noClose: true,
-
-                /**
                  * Xóa boxes
-                 * Ex: $.boxes.helper.close();
+                 * Ex: helper.close();
                  */
                 close: function() {
-                    if (helper.noClose) {
-                        if ($boxes) {
-                            $inner.animate({
-                                opacity: 0,
-                                top: '-' + $inner.height()
-                            }, 300, function() {
-                                $boxes.remove();
-                                helper.setHeight = helper.setWidth = helper.curHeight = helper.curWidth = 0;
-                            });
-                        }
+                    if ($boxes) {
+                        $inner.animate({
+                            opacity: 0,
+                            top: '-' + $inner.height()
+                        }, 300, function() {
+                            $boxes.remove();
+                            helper.setHeight = helper.setWidth = helper.curHeight = helper.curWidth = 0;
+                        });
                     }
                 }
             };
@@ -304,212 +285,217 @@
                 padding = setting.padding,
                 border = setting.border;
 
-            // Hiển thị một số message đặc biệt
-            if (message === null) {
-                message = 'null';
-            } else if ($.type(message) == 'object') {
-                message = '[object Object]';
-            }
 
-            // Chuyển HTML thành String
-            if (setting.messString) {
-                message = message.toString().replace(/[<>\n\t]/g, function(m) {
-                    return {
-                        '<': '&lt;',
-                        '>': '&gt;',
-                        '\n': '<br />',
-                        '\t': '<span style="display:inline-block;width:20px"></span>'
-                    }[m]
+            var showBoxes = function() {
+
+                // Hiển thị một số message đặc biệt
+                if (message === null) {
+                    message = 'null';
+                } else if ($.type(message) == 'object') {
+                    message = '[object Object]';
+                }
+
+                // Chuyển HTML thành String
+                if (setting.messString) {
+                    message = message.toString().replace(/[<>\n\t]/g, function(m) {
+                        return {
+                            '<': '&lt;',
+                            '>': '&gt;',
+                            '\n': '<br />',
+                            '\t': '<span style="display:inline-block;width:20px"></span>'
+                        }[m]
+                    });
+                }
+
+                // Ok click
+                if($ok) $ok.click(function() {
+                    setting.ok.call($ok, helper, setting);
+                    setting.button(true, helper, setting);
+                    if (!setting.noClose) helper.close();
                 });
-            }
 
-            /**
-             * Ok & Cancel click
-             * Khác với các hàm trên từng nút Ok và Cancel
-             * Trong hàm này this trả về giá trị {Boolean}
-             * Nếu nhấn Ok là true và Cancel là false
-             * Đối số đầu tiên của nó là $input chứ không phải $boxes
-             */
-            $ok.add($cancel).click(function() {
-                setting.button($(this).is($ok), $input, setting);
-            });            
+                // Cancel click
+                if($cancel) $cancel.click(function() {
+                    setting.cancel.call($cancel, helper, setting);
+                    setting.button(false, helper, setting);
+                    if (!setting.noClose) helper.close();
+                });
 
-            // Ok click
-            $ok.click(function() {
-                setting.ok.call($ok, $boxes, setting);
-                helper.close();
-            });
-
-            // Cancel click
-            $cancel.click(function() {
-                setting.cancel.call($cancel, $boxes, setting);
-                helper.close();
-            });
-
-            // Close click
-            $close.click(function() {
-                helper.noClose = true;
-                setting.close.call($close, $boxes, setting);
-                helper.close();
-            });
-
-            // Input change
-            $input.on('input', function() {
-                setting.input.call($input, $boxes, setting);
-            });
-
-            // Xóa boxes khi click ra ngoài
-            if (setting.clickOut) {
-                $overlay.click(function() {
+                // Close click
+                if($close) $close.click(function() {
+                    helper.noClose = true;
+                    setting.close.call($close, helper, setting);
                     helper.close();
                 });
-            }
 
-            // Xóa boxes theo thời gian định sẵn > 500ms
-            var timeOut = setting.autoClose,
-                autoClose,
-                hoverClose = function() {
-                    autoClose = setTimeout(function() {
+                // Input change
+                if($input) $input.on('input', function() {
+                    setting.input.call($input, helper, setting);
+                });
+
+                // Xóa boxes khi click ra ngoài
+                if (setting.clickOut) {
+                    $overlay.click(function() {
                         helper.close();
-                    }, setting.autoClose);
-                };
-            if (timeOut >= 500) {
-                hoverClose();
-                $inner.hover(function() {
-                    clearTimeout(autoClose);
-                }, function() {
-                    hoverClose();
-                });
-            }
-
-            // Thiết lập temp cho 3 dạng popup mặc định
-            if (!setting.okBtnShow && !/^alert|confirm|prompt$/.test(mode)) {
-                $ok = '';
-            }
-            if (!setting.cancelBtnShow && !/^confirm|prompt$/.test(mode)) {
-                $cancel = '';
-            }
-            if (!$ok && !$cancel) {
-                $button = '';
-            }
-            if (!setting.inputTxtShow && mode != 'prompt') {
-                $input = '';
-            }
-            if (!setting.closeBtnShow && /^alert|confirm|prompt$/.test(mode)) {
-                $close = '';
-            }
-
-            // Thêm boxes vào trang web
-            $boxes.appendTo('body');
-
-            // Hiệu ứng loading
-            helper.effect('load');
-
-            if (mode) {
-                $boxes.addClass(mode);
-            }
-            $boxes.append($overlay);
-            $boxes.append($inner);
-            $inner.css('border-width', border[0] + 'px ' + border[1] + 'px');
-            $inner.append($content);
-            if (title) {
-                $content.append($title.html(title));
-            }
-            if (message) {
-                $content.append($mess.html(message));
-            }
-            $content.css({
-                padding: padding[0] + 'px ' + padding[1] + 'px'
-            });
-            $close && $inner.append($close.html(setting.closeBtn));
-            if ($input) {
-                $content.append($input);
-                if (inputTxt) {
-                    $input.val(inputTxt)
+                    });
                 }
-            }
-            if ($button) {
-                $inner.append($button);
-                $ok && $button.append($ok.html(setting.okBtn));
-                $cancel && $button.append($cancel.html(setting.cancelBtn));
-                $button.css({
-                    padding: '0 ' + padding[1] + 'px'
+
+                // Xóa boxes theo thời gian định sẵn > 500ms
+                var timeOut = setting.autoClose,
+                    autoClose,
+                    hoverClose = function() {
+                        autoClose = setTimeout(function() {
+                            helper.close();
+                        }, setting.autoClose);
+                    };
+                if (timeOut >= 500) {
+                    hoverClose();
+                    $inner.hover(function() {
+                        clearTimeout(autoClose);
+                    }, function() {
+                        hoverClose();
+                    });
+                }
+
+                // Thiết lập temp cho 3 dạng popup mặc định
+                if (!setting.okBtnShow && !/^alert|confirm|prompt$/.test(mode)) {
+                    $ok = '';
+                }
+                if (!setting.cancelBtnShow && !/^confirm|prompt$/.test(mode)) {
+                    $cancel = '';
+                }
+                if (!$ok && !$cancel) {
+                    $button = '';
+                }
+                if (!setting.inputTxtShow && mode != 'prompt') {
+                    $input = '';
+                }
+                if (!setting.closeBtnShow && /^alert|confirm|prompt$/.test(mode)) {
+                    $close = '';
+                }
+
+
+                // Thêm boxes vào trang web
+                $boxes.appendTo('body');
+
+                // Hiệu ứng loading
+                helper.effect('load');
+
+                if (mode) {
+                    $boxes.addClass(mode);
+                }
+                $boxes.append($overlay);
+                $boxes.append($inner);
+                $inner.css('border-width', border[0] + 'px ' + border[1] + 'px');
+                $inner.append($content);
+                if (title) {
+                    $content.append($title.html(title));
+                }
+                $content.append($mess.html(message));
+                $content.css({
+                    padding: padding[0] + 'px ' + padding[1] + 'px'
                 });
-            }
+                $close && $inner.append($close.html(setting.closeBtn));
+                if ($input) {
+                    $content.append($input);
+                    if (inputTxt) {
+                        $input.val(inputTxt)
+                    }
+                }
+                if ($button) {
+                    $inner.append($button);
+                    $ok && $button.append($ok.html(setting.okBtn));
+                    $cancel && $button.append($cancel.html(setting.cancelBtn));
+                    $button.css({
+                        padding: '0 ' + padding[1] + 'px'
+                    });
+                }
 
-            // Xử lý kho message có chứa ảnh
-            var img = $mess.find('img');
-            var leg = img.length;
+                // Xử lý kho message có chứa ảnh
+                var img = $mess.find('img');
+                var leg = img.length;
 
-            var checkLoader = function() {
+                var checkLoader = function() {
 
-                // Căn chỉnh boxes vào giữa
-                helper.center();
+                    // Căn chỉnh boxes vào giữa
+                    helper.center();
 
-                // Xóa hiệu ứng loading
-                helper.removeEffect();
-            };
+                    // Xóa hiệu ứng loading
+                    helper.removeEffect();
+                };
 
-            if (leg) {
-              
-                var count = 0;
-                img.each(function(index, el) {
-                    if (this.complete) {
-                        count++;
-                        if (leg == count) {
-                            checkLoader()
-                        }
-                    } else {
-                        $(this).load(function() {
+                if (leg) {
+
+                    var count = 0;
+                    img.each(function(index, el) {
+                        if (this.complete) {
                             count++;
                             if (leg == count) {
                                 checkLoader()
                             }
-                        }).error(function() {
-                            count++;
-                            if (leg == count) {
-                                $(this).replaceWith('<span style="color:red">[ Image not loading: ' + this.src + ' ]</span>');
-                                checkLoader();
-                            }
-                        });
-                    }
+                        } else {
+                            $(this).load(function() {
+                                count++;
+                                if (leg == count) {
+                                    checkLoader()
+                                }
+                            }).error(function() {
+                                count++;
+                                if (leg == count) {
+                                    $(this).replaceWith('<span style="color:red">[ Image not loading: ' + this.src + ' ]</span>');
+                                    checkLoader();
+                                }
+                            });
+                        }
 
-                });
+                    });
 
+                } else {
+                    checkLoader();
+                }
+
+
+
+                // Điều chỉnh boxes khi cửa sổ thay đổi kích thước
+                if (setting.autoResize) {
+                    var reCenter = true;
+                    $(window).on('resize', function() {
+                        if (reCenter) {
+                            setTimeout(function() {
+                                helper.center(height, width);
+                                reCenter = true;
+                            }, 300);
+                            reCenter = false;
+                        }
+                    });
+                }
+
+                // Focus input (nếu có)
+                if ($input) {
+                    var el = $input.get(0);
+                    var elemLen = el.value.length;
+                    el.selectionStart = 0;
+                    el.selectionEnd = elemLen;
+                    el.focus();
+                }
+
+            };
+
+
+            if (this.selector === undefined) {
+                showBoxes();
+                // helper function
+                setting.helper.call(document, helper, setting);
             } else {
-                checkLoader();
-            }
-
-
-
-            // Điều chỉnh boxes khi cửa sổ thay đổi kích thước
-            if (setting.autoResize) {
-                var reCenter = true;
-                $(window).on('resize', function() {
-                    if (reCenter) {
-                        setTimeout(function() {
-                            helper.center(helper.setHeight, helper.setWidth);
-                            reCenter = true;
-                        }, 300);
-                        reCenter = false;
-                    }
+                this.click(function(event) {
+                    event.preventDefault();
+                    showBoxes();
+                    // helper function
+                	setting.helper.call(this, helper, setting);
                 });
             }
-
-
-
-            // Focus input (nếu có)
-            if ($input) {
-                var el = $input.get(0);
-                var elemLen = el.value.length;
-                el.selectionStart = 0;
-                el.selectionEnd = elemLen;
-                el.focus();
-            }
-
-            // helper function
-            setting.helper.call($boxes, setting);
         },
+
 
         /**
          * 3 kiểu popup của trình duyệt
@@ -520,7 +506,7 @@
          * prompt  : value  hoặc  null
          */
         alert: function(mess, callback) {
-            return $.boxes({
+            $.boxes({
                 mode: 'alert',
                 message: mess,
                 ok: function() {
@@ -533,7 +519,7 @@
             });
         },
         confirm: function(mess, callback) {
-            return $.boxes({
+            $.boxes({
                 mode: 'confirm',
                 message: mess,
                 button: function(e) {
@@ -550,11 +536,11 @@
                 mode: 'prompt',
                 message: mess,
                 inputTxt: txt,
-                button: function(e, i) {
+                button: function(e, helper) {
                     if ($.type(callback) === "function") {
                         var data = null;
                         if (e) {
-                            data = i.val();
+                            data = helper.el.input.val();
                         }
                         callback.apply({
                             data: data
@@ -565,13 +551,23 @@
         }
     };
 
+
     $.fn.boxes = $.boxes = function(methodOrOptions) {
         if (methods[methodOrOptions]) {
-            return methods[methodOrOptions].apply(this, Array.prototype.slice.call(arguments, 1));
+            var _this = this,
+                _call = Array.prototype.slice.call(arguments, 1);
+            if (this.selector === undefined) {
+                methods[methodOrOptions].apply(_this, _call);
+            } else {
+                this.click(function(event) {
+                    event.preventDefault();
+                    methods[methodOrOptions].apply(_this, _call);
+                });
+            }
         } else if (typeof methodOrOptions === 'object' || !methodOrOptions) {
             return methods.init.apply(this, arguments);
         } else {
-            console.error('Method ' + methodOrOptions + ' does not exist on jQuery.boxes');
+            window.console && console.error('Method ' + methodOrOptions + ' does not exist on jQuery.boxes');
         }
     };
 
