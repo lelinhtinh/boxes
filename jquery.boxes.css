@@ -111,7 +111,7 @@ div.zzBoxes_cancel {
     right: 2px;
     top: 2px;
     text-indent: -9999px;
-    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAYAAABWdVznAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAJZJREFUeNpi/P//PwMpgAlKywHxMSD2wKImCogPA7EEmAeyAYhP/oeAb0DsARUD4XAg/gOV2wV2DVTCA6oYWVMIkuLPQGyDrAGbJgzF6BrQNWEoBmEmNA/yADEbEp8ZKoYAODwIMvknlP0TOSBgiqOwuNkDTZM3soZjONzsjaRpC7IGCSDei+5BJE0gxUIgPiOpSQMgwAB/QVTYXhJ/ggAAAABJRU5ErkJggg==) no-repeat center center #FF4F4F;
+    background: url(img/close.png) no-repeat center center #FF4F4F;
     opacity: 0;
     -webkit-transition: all .3s;
     transition: all .3s;
