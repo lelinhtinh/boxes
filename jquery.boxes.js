@@ -1,7 +1,7 @@
 /*!
- * jQuery Plugin boxes v0.3
+ * jQuery Plugin boxes v0.4
  *
- * by zzbaivong
+ * by lelinhtinh
  * http://devs.forumvi.com/
  */
 (function($) {
@@ -62,7 +62,7 @@
             }, options);
 
 
-            // Template cho boxes             
+            // Template cho boxes
             var tpl = {
                 boxes: '<div class="zzBoxes"></div>',
                 overlay: '<div class="zzBoxes_overlay"></div>',
@@ -462,7 +462,7 @@
                     $(window).on('resize', function() {
                         if (reCenter) {
                             setTimeout(function() {
-                                helper.center(height, width);
+                                helper.center(helper.curHeight, helper.curWidth);
                                 reCenter = true;
                             }, 300);
                             reCenter = false;
